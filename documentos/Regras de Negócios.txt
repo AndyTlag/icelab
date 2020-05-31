@@ -1,0 +1,15 @@
+Regras de Negócios
+
+1- De inicio deverá fazer um login para acessar a página inicial;
+
+2- Após o login, será redirecionado para a página inicial onde exibe os produtos cadastrados;
+
+3- No menu superior tem os links ancorados a cada parte da página inicial com exceção do botão "Adicionar Sorvete" cujo tem a função de redirecionar para a página de controle de produtos e o botão "Sair" com a função de limpar a sessão e voltar pro login;
+
+4- Na página de controle de produtos será possível cadastrar, editar e excluir os produtos(sorvetes);
+
+5- Através do botão cadastrar pode-se contar com uma aba que será exibida através de javascript exibindo um formulário de preenchimento de informações do produto, no formulário pode preencher o nome, valor, descrição e imagem do produto;
+
+6- O botão de editar permite alterar qualquer informação já cadastrada de um produto;
+
+7- O botão excluir, como o próprio nome sugere, exclui o produto; 

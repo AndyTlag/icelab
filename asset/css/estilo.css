@@ -1,0 +1,42 @@
+h3{
+	color: pink;
+}
+
+body.login{
+
+	background-image: url('../img/background.jpg');
+
+}
+
+.loginbox{
+	background: rgb(102, 0, 102) transparent;
+	background: rgba(102, 0, 102, 0.2);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#660066FF, endColorstr=#660066FF);
+	width: 30%;
+	border-radius: 8px;
+	padding: 8%;
+	margin-top: 10%;
+	display: flex;
+}
+
+.form {
+	width: 60%;
+	margin: 0 auto; 
+
+}
+
+div.input-group-text{
+	background-color:pink;
+}
+
+.btn{
+	background: pink !important;
+}
+
+div.card{
+	padding: 4%;
+}
+
+.icefile{
+	border: none;
+}

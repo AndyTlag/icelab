@@ -1,0 +1,53 @@
+/*SELECT */
+
+DELIMITER $$
+CREATE PROCEDURE SelProd(
+IN prod_id int, 
+IN prod_nome varchar(50))
+BEGIN
+SELECT prod_nome
+FROM tm_produto where prod_id = prod_id;
+END $$
+
+
+/*INSERT */
+DELIMITER $$
+CREATE PROCEDURE CadProd(
+IN prod_nome varchar(55),
+IN prod_valor double,
+IN prod_desc varchar(255), 
+IN prod_img  varchar(255) 
+)
+BEGIN
+	INSERT INTO tm_produto (prod_nome,prod_valor,prod_desc,prod_img)
+	VALUES (prod_nome,prod_valor,prod_desc,prod_img);   
+END $$
+
+
+/*UPDATE */
+DELIMITER $$
+CREATE PROCEDURE UpdProd(
+IN prod_id int, 
+IN prod_nome varchar(55),
+IN prod_valor double,
+IN prod_desc varchar(255), 
+IN prod_img  varchar(255) 
+)
+BEGIN
+	UPDATE tm_produto 
+	SET prod_nome= prod_nome, 
+	prod_valor= prod_valor, 
+	prod_desc= prod_desc, 
+	prod_img= prod_img 
+	WHERE prod_id= prod_id;
+END $$
+
+
+/*DELETE */
+
+DELIMITER $$
+CREATE PROCEDURE ExProd(IN prod_id int)
+BEGIN
+DELETE 
+FROM tm_produto WHERE prod_id = prod_id;
+END $$
