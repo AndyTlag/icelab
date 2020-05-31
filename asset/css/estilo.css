@@ -40,3 +40,8 @@ div.card{
 .icefile{
 	border: none;
 }
+
+.btnedit, .btndel {
+    border-radius: 6px;
+    width: 4%;
+}
