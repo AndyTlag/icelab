@@ -205,6 +205,7 @@ if((!isset ($_SESSION['txtLogin'])))
 
 
       <div class="modal-body">
+      <img width="8%"  src="'.Config::SITE_UPLOAD_IMG.$registro['prod_img'].'">
       '.$registro['prod_nome'].' - R$'.$registro['prod_valor'].'
 
       </div>
@@ -217,6 +218,7 @@ if((!isset ($_SESSION['txtLogin'])))
       <button class=" btn-danger">Excluir</button>
       <input type="hidden" name="action" value="del_prod">
       <input type="hidden" name="prod_id" value="'.$registro['prod_id'].'">
+      <input type="hidden" name="prod_img" value="'.$registro['prod_img'].'">
       </form>
       </div>
 
@@ -300,6 +302,7 @@ if((!isset ($_SESSION['txtLogin'])))
 
       <input type="hidden" name="action" value="upd_prod">
       <input type="hidden" name="prod_id" value="'.$registro['prod_id'].'">
+      <input type="hidden" name="prod_img" value="'.$registro['prod_img'].'">
 
       </form>
 

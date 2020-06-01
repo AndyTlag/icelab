@@ -8,11 +8,11 @@ if ($_POST['action'] == "cad_prod") {
 }
 
 if ($_POST['action'] == "upd_prod") {
-	upd_prod($con);
+	upd_prod($con, $_POST['prod_id'], $_POST['prod_img']);
 }
 
 if ($_POST['action'] == "del_prod") {
-	del_prod($con,$_POST['prod_id']);
+	del_prod($con, $_POST['prod_id'], $_POST['prod_img']);
 }
 
 
@@ -39,66 +39,93 @@ function cad_prod($con){
       	$oDados = mysqli_query($con, $sql);
 
       	if ($dados === TRUE) {
-      		$_SESSION['success-cad-prod'] = "<div class='container'><div class='alert alert-success'>Produto cadastrado com sucesso!</div></div>";
+          '<script>
+          document.location.href=sorvete.php";
+          alert("Produto cadastrado com sucesso!");                
+          </script>';
 
-      		header('location:sorvete.php');
+          header('location:sorvete.php');
 
-      	}else{
-      		$_SESSION['danger-cad-prod']= "<div class='container'><div class='alert alert-danger'>Erro: ".mysqli_error($con)."</div></div>";
+        }else{
+         '<script>
+         document.location.href=sorvete.php";
+         alert("'.mysqli_error($con).'");                
+         </script>';
 
-      		header('location:sorvete.php');
+         header('location:sorvete.php');
 
-      	}
+       }
 
 
-      }
+     }
 
+   }
+
+   function upd_prod($con, $prod_id, $prod_img){
+
+    $prod_nome=$_POST['prod_nome'];
+    $prod_valor=$_POST['prod_valor'];
+    $prod_valor= str_replace(",", ".", $prod_valor);
+    $prod_desc=$_POST['prod_desc'];
+    $prod_img=$_FILES['prod_img'];
+
+
+    if ($_FILES['prod_img']['name'] > '0'){
+
+     $arquivo = Config::SITE_UPLOAD_IMG.$_POST['prod_img'];
+     //die($arquivo);
+
+     if(file_exists($arquivo)){
+      array_map( "unlink", glob($arquivo));     
     }
 
-    function upd_prod($con){
+    $extensao =  strtolower(substr($prod_img['name'], -4)); 
+    $novo_nome = md5(time()) . $extensao; 
+    $diretorio = Config::SITE_UPLOAD_IMG;
+    move_uploaded_file($prod_img['tmp_name'], $diretorio.$novo_nome);
 
-      $prod_nome=$_POST['prod_nome'];
-      $prod_valor=$_POST['prod_valor'];
-      $prod_valor= str_replace(",", ".", $prod_valor);
-      $prod_desc=$_POST['prod_desc'];
-      $prod_img=$_FILES['prod_img'];
-
-
-      if ($_FILES['prod_img']['name'] > '0'){
-
-        $extensao =  strtolower(substr($prod_img['name'], -4)); 
-        $novo_nome = md5(time()) . $extensao; 
-        $diretorio = Config::SITE_UPLOAD_IMG;
-        move_uploaded_file($prod_img['tmp_name'], $diretorio.$novo_nome);
-
-      }
-/*      var_dump($_FILES['prod_img']);
-foreach ($_FILES['prod_img'] as  $value) {
-  echo $value."<br>";
-};
-die($novo_nome);*/
-if (isset($prod_nome) || ($prod_valor) || ($prod_desc) || ($prod_img)){
-
-  if (isset($novo_nome)) {
-
-    $sql = "CALL UpdProd('$prod_nome', '$prod_valor', '$prod_desc', '$novo_nome')";
-  }else{
-
-    $sql = "CALL UpdProd('$prod_nome', '$prod_valor', '$prod_desc')";
   }
 
+  if (isset($prod_nome) || ($prod_valor) || ($prod_desc) || ($prod_img)){
 
-  die($sql);
+      //$sqlimg= "CALL SelProd(". $_POST['prod_id'].")"; Esse funciona, mas a função não aceita chamar 2 procedures, senão a procedure de update retorna falso. Se deixar o select direto, o update retorna true
+    $sqlimg= "SELECT * FROM ".Config::BD_PREFIX."produto 
+    WHERE prod_id=".$_POST['prod_id'];
 
-  $oDados = mysqli_query($con, $sql);
+    $dadosimg = mysqli_query($con, $sqlimg);
 
-  if ($dados === TRUE) {
-    $_SESSION['success-upd-prod'] = "<div class='container'><div class='alert alert-success'>Produto editado com sucesso!</div></div>";
+    $nome_anterior = mysqli_fetch_assoc($dadosimg);
 
-    header('location:sorvete.php');
+    $nome_anterior=$nome_anterior['prod_img'];
 
-  }else{
-    $_SESSION['danger-upd-prod']= "<div class='container'><div class='alert alert-danger'>Erro: ".mysqli_error($con)."</div></div>";
+
+    if (isset($novo_nome)) {
+
+      $sql = "CALL UpdProd('". $_POST['prod_id']."','$prod_nome', '$prod_valor', '$prod_desc', '$novo_nome')";
+    }else{
+
+      $sql = "CALL UpdProd('". $_POST['prod_id']."', '$prod_nome', '$prod_valor', '$prod_desc', '$nome_anterior')";
+    }
+
+
+    $oDados = mysqli_query($con, $sql);
+
+    if ($oDados === TRUE) {
+
+     '<script>
+     document.location.href=sorvete.php";
+     alert("Produto editado com sucesso!");                
+     </script>';
+
+     header('location:sorvete.php');
+
+   }else{
+
+    '<script>
+    document.location.href=sorvete.php";
+    alert("'.mysqli_error($con).'");                
+    </script>';
+
 
     header('location:sorvete.php');
 
@@ -110,15 +137,22 @@ if (isset($prod_nome) || ($prod_valor) || ($prod_desc) || ($prod_img)){
 
 }
 
-function del_prod($con,$prod_id){
+function del_prod($con,$prod_id,$prod_img){
 
   $sql = "CALL DelProd(". $_POST['prod_id'].")";
-  //die($sql);
+
 
   $oDados = mysqli_query($con, $sql);
 
 
   if ($oDados === TRUE) {
+
+
+    $arquivo = Config::SITE_UPLOAD_IMG.$_POST['prod_img'];
+
+    if(file_exists($arquivo)){
+      array_map( "unlink", glob($arquivo));     
+    }
 
 
     $con->commit();
@@ -133,7 +167,7 @@ function del_prod($con,$prod_id){
     document.location.href="sorvete.php";
     alert("Não foi possível excluir produto!");    
     </script>';
-   
+
   }
 
 
