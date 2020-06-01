@@ -171,7 +171,7 @@ if((!isset ($_SESSION['txtLogin'])))
 
 
                       <li class="list-group-item">
-                      <img width="10%" src="asset/upload/'.$registro['prod_img'].'">
+                      <img width="10%" src="'.Config::SITE_UPLOAD_IMG.$registro['prod_img'].'">
 
                       <h5 class="list-group-item-heading">'
                       .$registro['prod_nome'].

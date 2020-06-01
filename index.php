@@ -96,18 +96,44 @@ $usu_nome = $_SESSION['usu_nome'];
 
 
         <!-- sorvete -->
-         <div id="sorvete"></div>
+        <div id="sorvete"></div>
+        <div class="container">
+            <div class="row">
 
-        <div class="card" style="width: 18rem;">
-          <img class="card-img-top" src="asset/img/demo-image-01.jpg" alt="Imagem de capa do card">
-          <div class="card-body">
-            <h5 class="card-title">Título do card</h5>
-            <p class="card-text">Um exemplo de texto rápido para construir o título do card e fazer preencher o conteúdo do card.</p>
-            <a href="#" class="btn btn-primary">Comprar</a>
-          </div>
+                <?php
+
+
+                    $sql = "SELECT * FROM " .Config::BD_PREFIX. "produto";
+
+                    $oDados = mysqli_query($con, $sql);
+
+                    while ($registro = mysqli_fetch_assoc($oDados)) {
+
+                            echo '
+                            <div class="col-md-4">
+
+                                <div class="card" style="width: 18rem;">
+                                  <img class="card-img-top" src="'.Config::SITE_UPLOAD_IMG.$registro['prod_img'].'">
+                                  <div class="card-body">
+                                    <h5 class="card-title">'.$registro['prod_nome'].'</h5>
+                                    <p class="card-text">'.$registro['prod_desc'].'</p>
+                                    <p class="card-text">R$'.$registro['prod_valor'].'</p>
+                                    <a href="#" class="btn btn-primary">Comprar</a>
+                                  </div>
+
+                                </div>
+                            </div>
+
+                            
+                            ';
+                    }
+
+                ?>
+            </div>
         </div>
         
-        <!-- picolés -->
+                
+        <!-- sorvete -->
 
 
 
