@@ -7,6 +7,7 @@ class Config{
 	const SITE_PASTA = "/teams";
 	const SITE_NOME = "Lojinha Teams";
 	const BD_LIMIT_PAG = 10; //definir quantas <td> aparecerão por pag
+	const SITE_UPLOAD_IMG = "asset/upload/";
 
 
 	//info banco

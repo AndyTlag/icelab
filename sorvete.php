@@ -1,7 +1,16 @@
 <?php 
+include_once(dirname(__FILE__) . '/session.php');
 include_once(dirname(__FILE__) . '/Config.class.php');
 include_once(dirname(__FILE__) . '/conexao.php');
 include_once(dirname(__FILE__) . '/msg.php');
+
+
+
+if((!isset ($_SESSION['txtLogin'])))
+{
+  unset($_SESSION['txtLogin']);
+  header('location:login.php');
+}
 
 ?>
 
@@ -177,7 +186,7 @@ include_once(dirname(__FILE__) . '/msg.php');
                       echo '
 
                       <div class="pull-right">
-                      <button data-toggle="modal" data-target="#excluir_prod'.$registro['prod_id'].'" class=" btn-danger btndel">
+                      <button data-toggle="modal" data-target="#del_prod'.$registro['prod_id'].'" class=" btn-danger btndel">
                       <i class="fa fa-trash"></i>
                       </button>
                       </div>
@@ -188,7 +197,7 @@ include_once(dirname(__FILE__) . '/msg.php');
 
                       echo '
 
-                      <div class="modal" id="excluir_prod'.$registro['prod_id'].'">
+                      <div class="modal" id="del_prod'.$registro['prod_id'].'">
                       <div class="modal-dialog">
                       <div class="modal-content">
 
@@ -207,10 +216,10 @@ include_once(dirname(__FILE__) . '/msg.php');
 
 
                       <div class="modal-footer">
-                      <form action="excluir.php" method="post">
+                      <form action="crud.php" method="post">
 
-                      <button class="btn btn-danger">Excluir</button>
-                      <input type="hidden" name="action" value="excluir_prod">
+                      <button class=" btn-danger">Excluir</button>
+                      <input type="hidden" name="action" value="del_prod">
                       <input type="hidden" name="prod_id" value="'.$registro['prod_id'].'">
                       </form>
                       </div>
@@ -270,7 +279,7 @@ include_once(dirname(__FILE__) . '/msg.php');
                       Descrição
                       </label>
                       <div class="col-sm-10">
-                      <textarea id="prod_desc" name="prod_desc" class="form-control" minlength="3" required >
+                      <textarea id="prod_desc" name="prod_desc" class="form-control" minlength="3" required>
                       '.$registro['prod_desc'].'
                       </textarea>
                       </div>
@@ -281,7 +290,7 @@ include_once(dirname(__FILE__) . '/msg.php');
                       Imagem
                       </label>
                       <div class="col-sm-10">
-                      <input name="prod_img" id="prod_img" type="file" class="form-control icefile" required>
+                      <input name="prod_img" id="prod_img" type="file" class="form-control icefile"  value="0">
                       </div>
                       </div>
 
@@ -289,7 +298,7 @@ include_once(dirname(__FILE__) . '/msg.php');
 
                       <button class="mt-2 btn btn-success">Editar</button>
 
-                      <input type="hidden" name="action" value="edita_prod">
+                      <input type="hidden" name="action" value="upd_prod">
                       <input type="hidden" name="prod_id" value="'.$registro['prod_id'].'">
 
                       </form>
