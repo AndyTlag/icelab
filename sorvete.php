@@ -170,7 +170,7 @@ if((!isset ($_SESSION['txtLogin'])))
 
       <div class="col-md-4">
       <div class="card" style="width: 18rem;">
-      <img class="card-img-top" src="'.Config::SITE_UPLOAD_IMG.$registro['prod_img'].'">
+      <img class="card-img-top prod_img" src="'.Config::SITE_UPLOAD_IMG.$registro['prod_img'].'">
       <div class="card-body">
       <h5 class="card-title">'.$registro['prod_nome'].'</h5>
       <h6 class="card-subtitle mb-2 text-muted">R$ '.$registro['prod_valor'].'</h6>

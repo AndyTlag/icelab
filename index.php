@@ -115,7 +115,7 @@ $usu_nome = $_SESSION['usu_nome'];
                             <div class="col-md-4">
 
                                 <div class="card" style="width: 18rem;">
-                                  <img align="center" class="card-img-top prod_img_index" src="'.Config::SITE_UPLOAD_IMG.$registro['prod_img'].'">
+                                  <img align="center" class="card-img-top prod_img" src="'.Config::SITE_UPLOAD_IMG.$registro['prod_img'].'">
                                   <div class="card-body">
                                     <h5 class="card-title">'.$registro['prod_nome'].'</h5>
                                     <p class="card-text">'.$registro['prod_desc'].'</p>
