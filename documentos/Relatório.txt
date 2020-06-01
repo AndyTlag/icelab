@@ -1,0 +1,5 @@
+Contagem de Linha do Projeto sem JS e CSS = 733
+Tempo de Desenvolvimento = 28/05/2020 à 31/05/2020 --> 25 HORAS E 34 MINUTOS
+
+Sobre o resultado de cada inserção, edição, consulta e exclusão tive total êxito.
+Fiz incontáveis testes antes da finalização do sistema para fins de comprovação de qualidade e provas de que o back-end era eficaz.

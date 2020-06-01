@@ -5,7 +5,7 @@ CREATE PROCEDURE SelProd(
 IN prod_cod int, 
 IN prod_nome varchar(50))
 BEGIN
-SELECT prod_nome
+SELECT *
 FROM tm_produto where prod_id = prod_cod;
 END $$
 

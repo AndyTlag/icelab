@@ -2,7 +2,6 @@
 include_once(dirname(__FILE__) . '/session.php');
 include_once(dirname(__FILE__) . '/Config.class.php');
 include_once(dirname(__FILE__) . '/conexao.php');
-include_once(dirname(__FILE__) . '/msg.php');
 
 
 
