@@ -43,5 +43,9 @@ div.card{
 
 .btnedit, .btndel {
     border-radius: 6px;
-    width: 4%;
+}
+
+.prod_img_index{
+    height: 300px;
+    width: 100%;
 }

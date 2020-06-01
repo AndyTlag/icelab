@@ -26,12 +26,9 @@ $usu_nome = $_SESSION['usu_nome'];
        
         <title>IceLab</title>
         
-        <!-- Font Awesome icons (free version)-->
-        <script src="https://use.fontawesome.com/releases/v5.13.0/js/all.js" crossorigin="anonymous"></script>
-        <!-- Google fonts-->
+        <script src="asset/js/all.js"></script>
         <link href="https://fonts.googleapis.com/css?family=Varela+Round" rel="stylesheet" />
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet" />
-        <!-- Core theme CSS (includes Bootstrap)-->
         <link href="asset/css/styles.css" rel="stylesheet" />
         <link rel="stylesheet" type="text/css" href="asset/css/estilo.css">
         <link rel="shortcut icon" href="asset/img/favicon.png" />
@@ -76,7 +73,7 @@ $usu_nome = $_SESSION['usu_nome'];
                         <p class="text-white-50">Trabalho de Banco de Dados para o Professor Wellington Cidade</p>
                     </div>
                 </div>
-                <img class="img-fluid" src="asset/img/ipad.png" alt="" />
+                <img class="img-fluid" src="asset/img/iceballs.png"/>
             </div>
         </section>
 
@@ -107,13 +104,18 @@ $usu_nome = $_SESSION['usu_nome'];
 
                     $oDados = mysqli_query($con, $sql);
 
-                    while ($registro = mysqli_fetch_assoc($oDados)) {
+
+                    if (mysqli_num_rows($oDados) === 0) {
+                        echo("<h3>Não há produtos cadastrados ainda.</h3>");
+                    }else{
+
+                        while ($registro = mysqli_fetch_assoc($oDados)) {
 
                             echo '
                             <div class="col-md-4">
 
                                 <div class="card" style="width: 18rem;">
-                                  <img class="card-img-top" src="'.Config::SITE_UPLOAD_IMG.$registro['prod_img'].'">
+                                  <img align="center" class="card-img-top prod_img_index" src="'.Config::SITE_UPLOAD_IMG.$registro['prod_img'].'">
                                   <div class="card-body">
                                     <h5 class="card-title">'.$registro['prod_nome'].'</h5>
                                     <p class="card-text">'.$registro['prod_desc'].'</p>
@@ -126,12 +128,13 @@ $usu_nome = $_SESSION['usu_nome'];
 
                             
                             ';
+                        }
                     }
 
                 ?>
             </div>
         </div>
-        
+
                 
         <!-- sorvete -->
 
@@ -149,7 +152,9 @@ $usu_nome = $_SESSION['usu_nome'];
             <div class="col-xl-8 col-lg-7"></div>
                     
         </div>
-        <!-- Signup-->
+
+
+        <!-- Novidades -->
         <section class="signup-section" id="signup">
             <div class="container">
                 <div class="row">
@@ -161,7 +166,7 @@ $usu_nome = $_SESSION['usu_nome'];
                 </div>
             </div>
         </section>
-        <!-- Contact-->
+        <!-- Contato -->
         <section class="contact-section bg-black">
             <div class="container">
                 <div class="row">
@@ -211,12 +216,9 @@ $usu_nome = $_SESSION['usu_nome'];
 
         <!-- Footer-->
         <footer class="footer bg-black small text-center text-white-50"><div class="container">Copyright © IceLab 2020</div></footer>
-        <!-- Bootstrap core JS-->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js"></script>
-        <!-- Third party plugin JS-->
+        <script src="asset/js/jquery-3.5.1.min.js"></script>
+        <script src="asset/js/bootstrap.bundle.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
-        <!-- Core theme JS-->
         <script src="asset/js/scripts.js"></script>
     </body>
 </html>

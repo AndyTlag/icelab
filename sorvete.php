@@ -24,11 +24,7 @@ if((!isset ($_SESSION['txtLogin'])))
 
   <title>IceLab</title>
 
-  <!-- Font Awesome icons (free version)-->
-  <script src="https://use.fontawesome.com/releases/v5.13.0/js/all.js" ></script>
-  <!-- Google fonts-->
-
-  <!-- Core theme CSS (includes Bootstrap)-->
+  <script src="asset/js/all.js" ></script>
   <script src="asset/js/jquery-3.5.1.min.js"></script>
   <script src="asset/js/bootstrap.js"></script>
   <link rel="stylesheet" href="asset/css/bootstrap.min.css">
@@ -66,7 +62,7 @@ if((!isset ($_SESSION['txtLogin'])))
 
 
 
-
+<!-- INICIO ÁREA CADASTRO -->
 
 <div class="container">
 
@@ -134,206 +130,204 @@ if((!isset ($_SESSION['txtLogin'])))
 
     </div>
   </div>     
-
-
-
 </div>
+
+<hr>
+
+<!-- FIM AREA CADASTRO -->
 
 <br>
 
-<div class="app-main__outer">
-  <div class="app-main__inner">
-    <div class="tab-content">
-      <div class="tab-pane tabs-animation fade show active" id="tab-content-0" role="tabpanel">
-        <div class="main-card mb-3 card">
-         <div class="col-md-12">
-          <div class="card-body">
-            <div class="col-md-12">
-              <div class="main-card mb-6 card">
-                <div class="card-body">
-                  <h5 class="card-title">Lista de Produtos</h5>
-                  <ul class="list-group">
 
-                    <?php
+<div class="col-md-12">
+  <div class="card-body">
+    <h5 class="card-title">Lista de Produtos</h5>
+
+    <?php
 
 
-                    $cSQL = "SELECT * FROM " .Config::BD_PREFIX. "produto";
+    $cSQL = "SELECT * FROM " .Config::BD_PREFIX. "produto ORDER BY prod_id DESC";
 
 
 
-                    $oDados = mysqli_query($con, $cSQL);
+    $oDados = mysqli_query($con, $cSQL);
 
-                    while ($registro = mysqli_fetch_assoc($oDados)) {
+
+    if (mysqli_num_rows($oDados) === 0) {
+     echo("<h3>Não há produtos cadastrados ainda.</h3>");
+    }else{
+
+    while ($registro = mysqli_fetch_assoc($oDados)) {
 
                                                 //listar sorvete
-                      echo '
+      echo '
+
+      <div class="card mb-3">
+      <div class="row">
 
 
 
-                      <li class="list-group-item">
-                      <img width="10%" src="'.Config::SITE_UPLOAD_IMG.$registro['prod_img'].'">
 
-                      <h5 class="list-group-item-heading">'
-                      .$registro['prod_nome'].
-                      '</h5>
+      <div class="col-md-4">
+      <div class="card" style="width: 18rem;">
+      <img class="card-img-top" src="'.Config::SITE_UPLOAD_IMG.$registro['prod_img'].'">
+      <div class="card-body">
+      <h5 class="card-title">'.$registro['prod_nome'].'</h5>
+      <h6 class="card-subtitle mb-2 text-muted">R$ '.$registro['prod_valor'].'</h6>
+      <p class="card-text">'.$registro['prod_desc'].'</p>
 
-                      <p class="list-group-item-text">R$ '.$registro['prod_valor'].'</p>
-                      <p class="list-group-item-text">'.$registro['prod_desc'].'</p>
-                      ';
+
+      ';
 
                                                 //botao de exclusao
 
-                      echo '
+      echo '
 
-                      <div class="pull-right">
-                      <button data-toggle="modal" data-target="#del_prod'.$registro['prod_id'].'" class=" btn-danger btndel">
-                      <i class="fa fa-trash"></i>
-                      </button>
-                      </div>
+      <button data-toggle="modal" data-target="#del_prod'.$registro['prod_id'].'" class=" btn-danger btndel">
+      <i class="fa fa-trash"></i>
+      </button>
 
-                      ';
+      ';
 
                                                 //modal de exclusao
 
-                      echo '
+      echo '
 
-                      <div class="modal" id="del_prod'.$registro['prod_id'].'">
-                      <div class="modal-dialog">
-                      <div class="modal-content">
-
-
-                      <div class="modal-header">
-                      <h4 class="modal-title">Você deseja excluir esse produto?</h4>
-                      <button type="button" class="close" data-dismiss="modal">&times;</button>
-                      </div>
+      <div class="modal" id="del_prod'.$registro['prod_id'].'">
+      <div class="modal-dialog">
+      <div class="modal-content">
 
 
-                      <div class="modal-body">
-                      '.$registro['prod_nome'].' - R$'.$registro['prod_valor'].'
+      <div class="modal-header">
+      <h4 class="modal-title">Você deseja excluir esse produto?</h4>
+      <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
 
-                      </div>
 
+      <div class="modal-body">
+      '.$registro['prod_nome'].' - R$'.$registro['prod_valor'].'
 
-
-                      <div class="modal-footer">
-                      <form action="crud.php" method="post">
-
-                      <button class=" btn-danger">Excluir</button>
-                      <input type="hidden" name="action" value="del_prod">
-                      <input type="hidden" name="prod_id" value="'.$registro['prod_id'].'">
-                      </form>
-                      </div>
-
-                      </div>
-                      </div>
-                      </div>
+      </div>
 
 
 
-                      ';
+      <div class="modal-footer">
+      <form action="crud.php" method="post">
+
+      <button class=" btn-danger">Excluir</button>
+      <input type="hidden" name="action" value="del_prod">
+      <input type="hidden" name="prod_id" value="'.$registro['prod_id'].'">
+      </form>
+      </div>
+
+      </div>
+      </div>
+      </div>
+
+
+
+      ';
 
                                                 //botao de edicao
 
-                      echo '
+      echo '
 
-                      <div class="pull-right">
-                      <button type="button" class=" btn-warning btn-toggle btnedit" data-element="#'.$registro['prod_id'].'" value="">
-                      <i class="fa fa-edit"></i>
+      <button type="button" class=" btn-warning btn-toggle btnedit" data-element="#'.$registro['prod_id'].'" value="">
+      <i class="fa fa-edit"></i>
 
-                      </button>
-                      </div>
+      </button>
 
-                      ';
+      </div> 
+      </div>
+      </div>
+
+      ';
+      
+      //As 3 ultimas divs acima fecham o card de listar o produto
 
                                                 //form de edicao
 
-                      echo '
+      echo '
+      <div class="col-md-8">
+      <div class="form-group" id="'.$registro['prod_id'].'" style="display:none">
 
-                      <div class="form-group" id="'.$registro['prod_id'].'" style="display:none">
-
-                     <form action="crud.php" method="post" enctype="multipart/form-data">
-
-
-                      <div class="position-relative row form-group">
-                      <label for="prod_nome" class="col-sm-2 col-form-label">
-                      Nome
-                      </label>
-                      <div class="col-sm-10">
-                      <input name="prod_nome" id="prod_nome" placeholder="Nome do Produto" type="text" class="form-control" minlength="3" required value="'.$registro['prod_nome'].'">
-                      </div>
-                      </div>
+      <form action="crud.php" method="post" enctype="multipart/form-data">
 
 
-                      <div class="position-relative row form-group">
-                      <label for="prod_valor" class="col-sm-2 col-form-label">
-                      Valor
-                      </label>
-                      <div class="col-sm-10">
-                      <input name="prod_valor" id="prod_valor" placeholder="Valor do Produto" type="text" class="form-control" required value="'.$registro['prod_valor'].'">
-                      </div>
-                      </div>
-
-
-                      <div class="position-relative row form-group">
-                      <label for="prod_desc" class="col-sm-2 col-form-label">
-                      Descrição
-                      </label>
-                      <div class="col-sm-10">
-                      <textarea id="prod_desc" name="prod_desc" class="form-control" minlength="3" required>
-                      '.$registro['prod_desc'].'
-                      </textarea>
-                      </div>
-                      </div>
-
-                      <div class="position-relative row form-group">
-                      <label for="prod_img" class="col-sm-2 col-form-label ">
-                      Imagem
-                      </label>
-                      <div class="col-sm-10">
-                      <input name="prod_img" id="prod_img" type="file" class="form-control icefile"  value="0">
-                      </div>
-                      </div>
-
-
-
-                      <button class="mt-2 btn btn-success">Editar</button>
-
-                      <input type="hidden" name="action" value="upd_prod">
-                      <input type="hidden" name="prod_id" value="'.$registro['prod_id'].'">
-
-                      </form>
-
-                      </div>
-                      </li>
-
-
-
-
-                      '
-                      ;
-
-
-
-
-                    }
-
-
-                    ?>
-
-
-
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+      <div class="position-relative row form-group">
+      <label for="prod_nome" class="col-sm-2 col-form-label">
+      Nome
+      </label>
+      <div class="col-sm-10">
+      <input name="prod_nome" id="prod_nome" placeholder="Nome do Produto" type="text" class="form-control" minlength="3" required value="'.$registro['prod_nome'].'">
       </div>
-    </div>
+      </div>
+
+
+      <div class="position-relative row form-group">
+      <label for="prod_valor" class="col-sm-2 col-form-label">
+      Valor
+      </label>
+      <div class="col-sm-10">
+      <input name="prod_valor" id="prod_valor" placeholder="Valor do Produto" type="text" class="form-control" required value="'.$registro['prod_valor'].'">
+      </div>
+      </div>
+
+
+      <div class="position-relative row form-group">
+      <label for="prod_desc" class="col-sm-2 col-form-label">
+      Descrição
+      </label>
+      <div class="col-sm-10">
+      <textarea id="prod_desc" name="prod_desc" class="form-control" minlength="3" required>
+      '.$registro['prod_desc'].'
+      </textarea>
+      </div>
+      </div>
+
+      <div class="position-relative row form-group">
+      <label for="prod_img" class="col-sm-2 col-form-label ">
+      Imagem
+      </label>
+      <div class="col-sm-10">
+      <input name="prod_img" id="prod_img" type="file" class="form-control icefile"  value="0">
+      </div>
+      </div>
+
+
+
+      <button class="mt-2 btn btn-success">Editar</button>
+
+      <input type="hidden" name="action" value="upd_prod">
+      <input type="hidden" name="prod_id" value="'.$registro['prod_id'].'">
+
+      </form>
+
+      </div>
+      </div>
+      </div>
+
+
+
+      </div>
+
+
+
+
+      '
+      ;
+
+
+
+
+    }
+    }
+
+
+    ?>
+
   </div>
 </div>
-</div>
-
 
 
 </body>
